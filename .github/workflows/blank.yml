@@ -35,4 +35,7 @@ jobs:
         with:
           name: MyArtifact
           path: ${{ github.workspace }}
+          
+      - name: LS
+        run: ls
 
