@@ -22,7 +22,7 @@ jobs:
       - name: Test 1
         run: |
           echo "hello" > sample.txt
-          zip -rq archieveArtifact.zip .*
+          zip -rq archieveArtifact.zip .*    
           
       - name: Upload artifact
         uses: actions/upload-artifact@v2
