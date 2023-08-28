@@ -4,7 +4,7 @@ on:
 
 jobs:
   query:
-    runs-on: generic-workflow
+    runs-on: ubuntu-latest
     steps:
       - name: Run KQL query
         uses: azure/pipelines@v1
