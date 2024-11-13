@@ -1,0 +1,62 @@
+name: Demo Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      runner_label:
+        description: 'The label of runner'
+        required: true
+        default: 'ubuntu-latest'
+
+env:
+  REPO_NAME: ${{github.repository}}
+  
+
+jobs:
+  job1:
+    runs-on: ${{inputs.runner_label}}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Print inputs
+        run: |
+          echo "Runner label: ${{inputs.runner_label}}"
+          echo "Repository name: $REPO_NAME"
+
+      - name: Install Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Run Python Script
+        run: |
+          # Run the Python script
+          python3 hello.py
+
+  job2:
+    runs-on: ${{inputs.runner_label}}
+    needs: job1
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: upload data
+          path: |
+            hello.py
+
+      - name: Run Super-Linter
+        uses: github/super-linter@v4
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
