@@ -54,9 +54,9 @@ jobs:
           path: |
             hello.py
 
-      - name: Run Super-Linter
-        uses: github/super-linter@v4
+      - name: Super-linter
+        uses: super-linter/super-linter@v7.1.0 # x-release-please-version
         env:
-          DEFAULT_BRANCH: main
+          # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
